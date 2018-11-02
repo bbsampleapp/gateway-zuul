@@ -1,0 +1,15 @@
+.idea
+target/
+*.iml
+bin/
+.classpath
+.project
+.settings/
+.metadata
+.cache
+/manifest.yml
+/sonar-project.properties
+.sonar/
+hs_err_pid*
+pom.xml.versionsBackup
+/Dockerfile

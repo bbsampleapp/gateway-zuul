@@ -1,0 +1,48 @@
+internalkalahurl: https://kalah-service.mybluemix.net
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: routes
+
+server:
+  port: 8251
+
+ribbon:
+  eureka:
+    enabled: true
+
+zuul:
+  host:
+    max-total-connections: 2000
+    max-per-route-connections: 2000
+    # set some aggressive timeouts to see if it improves connectivity
+    connect-timeout-millis: 2000
+    socket-timeout-millis: 9000
+  routes:
+    kalah-service:
+      path: /kalah/v1/**
+      url: ${internalkalahurl}
+  SendErrorFilter:
+    error:
+      disable: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          semaphore:
+            maxConcurrentRequests: 300
+    kalah-service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+kalah-service:
+  ribbon:
+    ConnectTimeout: 2000
+    ReadTimeout: 3000

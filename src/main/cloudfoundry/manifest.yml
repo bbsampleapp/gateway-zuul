@@ -1,0 +1,13 @@
+---
+applications:
+- name: gateway-zuul
+  disk_quota: 512M
+  path: target/gateway-zuul-0.0.1-SNAPSHOT.war
+  buildpack: liberty-for-java
+  instances: 1
+  memory: 786M
+  env:
+    JBP_CONFIG_IBMJDK: 'version: 1.8.+'
+    LOGBACK_LOG_LEVEL: DEBUG
+    SPRING_PROFILES_ACTIVE: cloud
+  timeout: 120
